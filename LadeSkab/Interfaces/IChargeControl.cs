@@ -10,6 +10,6 @@ namespace LadeSkab.Interfaces
     {
         void StartCharge();
         void StopCharge();
-        void IsConnected();
+        bool IsConnected();
     }
 }
