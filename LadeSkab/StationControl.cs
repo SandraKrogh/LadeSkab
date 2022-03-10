@@ -27,6 +27,10 @@ namespace LadeSkab
         private string logFile = "logfile.txt"; // Navnet på systemets log-fil
 
         // Her mangler constructor
+        public StationControl(IDoor door)
+        {
+            door.DoorStateChanged += HandleDoorChangedEvent;
+        }
 
         // Eksempel på event handler for eventet "RFID Detected" fra tilstandsdiagrammet for klassen
         private void RfidDetected(int id)
@@ -83,5 +87,18 @@ namespace LadeSkab
         }
 
         // Her mangler de andre trigger handlere
+        private void HandleDoorChangedEvent(object sender, DoorStateEventArg e)
+        {
+            //Dør er åbnet af brugeren
+            if(e.Current == false)
+            {
+                Console.WriteLine("Tilslut Telefon");
+            }
+            //Dør lukkes af brugeren 
+            else if (e.Current == true)
+            {
+                Console.WriteLine("Indlæs RFID");
+            }
+        }
     }
 }
