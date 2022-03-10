@@ -4,9 +4,9 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Ladeskab.Interfaces;
+using LadeSkab.Interfaces;
 
-namespace Ladeskab
+namespace LadeSkab
 {
     public class StationControl
     {
