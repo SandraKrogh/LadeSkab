@@ -3,106 +3,56 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LadeSkab.Interfaces;
 
 namespace LadeSkab
 {
     public class Door : IDoor
     {
-    }
 
-    public event EventHandler<DoorEventArgs> CurrentValueEvent;
+        public event EventHandler<DoorStateEventArg> DoorStateChanged;
 
-    public bool CurrentValue { get; private set; }
+        public bool CurrentState { get; set; }
 
-    public bool Connected { get; private set; }
+        public bool locked { get; set; }
 
-    public Door()
-    {
-        CurrentValue = 0.0;
-        Connected = true;
-        _overload = false;
-
-        _timer = new System.Timers.Timer();
-        _timer.Enabled = false;
-        _timer.Interval = CurrentTickInterval;
-        _timer.Elapsed += TimerOnElapsed;
-    }
-
-    private void TimerOnElapsed(object sender, ElapsedEventArgs e)
-    {
-        // Only execute if charging
-        if (_charging)
+        public Door()
         {
-            _ticksSinceStart++;
-            if (Connected && !_overload)
-            {
-                double newValue = MaxCurrent -
-                                  _ticksSinceStart * (MaxCurrent - FullyChargedCurrent) / (ChargeTimeMinutes * 60 * 1000 / CurrentTickInterval);
-                CurrentValue = Math.Max(newValue, FullyChargedCurrent);
-            }
-            else if (Connected && _overload)
-            {
-                CurrentValue = OverloadCurrent;
-            }
-            else if (!Connected)
-            {
-                CurrentValue = 0.0;
-            }
+            //Åben fra start
+            CurrentState = false;
+            locked = false;
+        }
 
+        //Dør åbnes
+        public void DoorOpen()
+        {
+            CurrentState = false;
             OnNewCurrent();
         }
-    }
 
-    public void SimulateConnected(bool connected)
-    {
-        Connected = connected;
-    }
-
-    public void SimulateOverload(bool overload)
-    {
-        _overload = overload;
-    }
-
-    public void StartCharge()
-    {
-        // Ignore if already charging
-        if (!_charging)
+        //Dør lukkes
+        public void DoorClosed()
         {
-            if (Connected && !_overload)
-            {
-                CurrentValue = 500;
-            }
-            else if (Connected && _overload)
-            {
-                CurrentValue = OverloadCurrent;
-            }
-            else if (!Connected)
-            {
-                CurrentValue = 0.0;
-            }
 
+            CurrentState = true;
             OnNewCurrent();
-            _ticksSinceStart = 0;
+        }
 
-            _charging = true;
+        //Lås Dør
+        public void LockDoor()
+        {
+            locked = true;
+        }
 
-            _timer.Start();
+        //Åben dør 
+        public void UnlockDoor()
+        {
+            locked = false;
+        }
+
+        private void OnNewCurrent()
+        {
+            DoorStateChanged?.Invoke(this, new DoorStateEventArg() { Current = this.CurrentState });
         }
     }
-
-    public void StopCharge()
-    {
-        _timer.Stop();
-
-        CurrentValue = 0.0;
-        OnNewCurrent();
-
-        _charging = false;
-    }
-
-    private void OnNewCurrent()
-    {
-        CurrentValueEvent?.Invoke(this, new CurrentEventArgs() { Current = this.CurrentValue });
-    }
-
 }
