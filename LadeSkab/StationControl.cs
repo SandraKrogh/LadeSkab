@@ -23,13 +23,16 @@ namespace LadeSkab
         private IChargeControl _charger;
         private int _oldId;
         private IDoor _door;
+        private IRfdReader _rfdReader;
 
         private string logFile = "logfile.txt"; // Navnet på systemets log-fil
 
         // Her mangler constructor
-        public StationControl(IDoor door)
+        public StationControl(IDoor door, IRfdReader reader)
         {
             door.DoorStateChanged += HandleDoorChangedEvent;
+            reader.RfidDetected += HandleRidDetected;
+            
         }
 
         // Eksempel på event handler for eventet "RFID Detected" fra tilstandsdiagrammet for klassen
@@ -87,7 +90,7 @@ namespace LadeSkab
             }
         }
 
-        // Her mangler de andre trigger handlere
+        //Door state changed
         private void HandleDoorChangedEvent(object sender, DoorStateEventArg e)
         {
             //Dør er åbnet af brugeren
@@ -100,6 +103,13 @@ namespace LadeSkab
             {
                 Console.WriteLine("Indlæs RFID");
             }
+        }
+
+
+        //Rfid detected
+        private void HandleRidDetected(object sender, RfidDetectedEventArgs e)
+        {
+            RfidDetected(e.id);
         }
     }
 }
