@@ -13,7 +13,7 @@ namespace LadeSkab
 
         public int CurrentId { get; set; }
 
-        public void SimpulateDetected(int id)
+        public void SimulateDetected(int id)
         {
             CurrentId = id;
             OnNewCurrent();
