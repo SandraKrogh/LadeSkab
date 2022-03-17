@@ -23,16 +23,19 @@ namespace LadeSkab
         private IChargeControl _charger;
         private int _oldId;
         private IDoor _door;
-        private IRfdReader _rfdReader;
+        private IRfidReader _rfidReader;
+        private IDisplay _myDisplay = new Display();
 
         private string logFile = "logfile.txt"; // Navnet på systemets log-fil
 
         // Her mangler constructor
-        public StationControl(IDoor door, IRfdReader reader)
+        public StationControl(IDoor door, IRfidReader reader)
         {
             door.DoorStateChanged += HandleDoorChangedEvent;
             reader.RfidDetected += HandleRidDetected;
-            
+            _state = LadeskabState.Available;
+
+
         }
 
         // Eksempel på event handler for eventet "RFID Detected" fra tilstandsdiagrammet for klassen
@@ -53,7 +56,7 @@ namespace LadeSkab
                             writer.WriteLine(DateTime.Now + ": Skab låst med RFID: {0}", id);
                         }
 
-                        Console.WriteLine("Skabet er låst og din telefon lades. Brug dit RFID tag til at låse op.");
+                        _myDisplay.WriteLine("Skabet er låst og din telefon lades. Brug dit RFID tag til at låse op.");
                         _state = LadeskabState.Locked;
                     }
                     else
@@ -93,15 +96,18 @@ namespace LadeSkab
         //Door state changed
         private void HandleDoorChangedEvent(object sender, DoorStateEventArg e)
         {
-            //Dør er åbnet af brugeren
+            //Bruger åbner dør
             if(e.State == false)
             {
-                Console.WriteLine("Tilslut Telefon");
+                _myDisplay.WriteLine("Tilslut Telefon");
+                _state = LadeskabState.DoorOpen;
             }
-            //Dør lukkes af brugeren 
-            else if (e.State == true)
+            //Døren lukker dør 
+            else if (e.State == false)
             {
-                Console.WriteLine("Indlæs RFID");
+                _myDisplay.WriteLine("Indlæs RFID");
+                _state = LadeskabState.Available;
+
             }
         }
 

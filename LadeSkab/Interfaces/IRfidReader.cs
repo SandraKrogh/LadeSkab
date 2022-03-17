@@ -11,7 +11,7 @@ namespace LadeSkab.Interfaces
         public int id { set; get; }
     }
 
-    public interface IRfdReader
+    public interface IRfidReader
     {
         event EventHandler<RfidDetectedEventArgs> RfidDetected;
 

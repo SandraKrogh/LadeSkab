@@ -44,7 +44,7 @@ namespace LadeSkab
             locked = true;
         }
 
-        //Åben dør 
+        //Dør er åben
         public void UnlockDoor()
         {
             locked = false;
