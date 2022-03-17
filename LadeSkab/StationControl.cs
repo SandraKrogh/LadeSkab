@@ -21,7 +21,7 @@ namespace LadeSkab
         // Her mangler flere member variable
         private LadeskabState _state;
         private IChargeControl _charger;
-        private int _oldId;
+        public int _oldId;
         private IDoor _door;
         private IRfidReader _rfidReader;
         private IDisplay _myDisplay = new Display();
@@ -32,15 +32,15 @@ namespace LadeSkab
         public StationControl(IDoor door, IRfidReader reader)
         {
             door.DoorStateChanged += HandleDoorChangedEvent;
-            reader.RfidDetected += HandleRidDetected;
+            reader.RfidDetected += HandleRfidDetected;
             _state = LadeskabState.Available;
-
-
         }
 
         // Eksempel på event handler for eventet "RFID Detected" fra tilstandsdiagrammet for klassen
-        private void RfidDetected(int id)
+        private void HandleRfidDetected(object sender, RfidDetectedEventArgs e)
         {
+            int id = e.id;
+
             switch (_state)
             {
                 case LadeskabState.Available:
@@ -61,7 +61,7 @@ namespace LadeSkab
                     }
                     else
                     {
-                        Console.WriteLine("Din telefon er ikke ordentlig tilsluttet. Prøv igen.");
+                        _myDisplay.WriteLine("Din telefon er ikke ordentlig tilsluttet. Prøv igen.");
                     }
 
                     break;
@@ -81,12 +81,12 @@ namespace LadeSkab
                             writer.WriteLine(DateTime.Now + ": Skab låst op med RFID: {0}", id);
                         }
 
-                        Console.WriteLine("Tag din telefon ud af skabet og luk døren");
+                        _myDisplay.WriteLine("Tag din telefon ud af skabet og luk døren");
                         _state = LadeskabState.Available;
                     }
                     else
                     {
-                        Console.WriteLine("Forkert RFID tag");
+                        _myDisplay.WriteLine("Forkert RFID tag");
                     }
 
                     break;
@@ -111,11 +111,5 @@ namespace LadeSkab
             }
         }
 
-
-        //Rfid detected
-        private void HandleRidDetected(object sender, RfidDetectedEventArgs e)
-        {
-            RfidDetected(e.id);
-        }
     }
 }

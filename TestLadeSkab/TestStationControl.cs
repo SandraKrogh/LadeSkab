@@ -17,38 +17,46 @@ namespace TestLadeSkab
         private StationControl uut;
         private IRfidReader _tempRfidReader;
         private IDoor _tempDoor;
+        private IUsbCharger _tempCharger;
+        private IDisplay _tempDisplay;
 
         [SetUp]
         public void Setup()
         {
             _tempRfidReader = Substitute.For<IRfidReader>();
             _tempDoor = Substitute.For<IDoor>();
-            
+            _tempCharger = Substitute.For<IUsbCharger>();
+            _tempDisplay = Substitute.For<IDisplay>();
+
             uut = new StationControl(_tempDoor, _tempRfidReader);
         }
 
-      
+        [Test]
         public void HandleDoorStateChanged_CurrentStateFalse()
         {
-            var stringwriter = new StringWriter();
-            Console.SetOut(stringwriter);
-
             _tempDoor.DoorStateChanged += Raise.EventWith(new DoorStateEventArg {State = false});
-            Assert.AreEqual("Tilslut Telefon", stringwriter.ToString());
+            _tempDisplay.WriteLine("Tilslut Telefon");
+       
         }
 
+        [Test]
         public void HandleDoorStateChanged_CurrentStateTrue()
         {
-            var stringwriter = new StringWriter();
-            Console.SetOut(stringwriter);
-
             _tempDoor.DoorStateChanged += Raise.EventWith(new DoorStateEventArg { State = true });
-            Assert.AreEqual("Indlæs RFID", stringwriter.ToString());
+            _tempDisplay.WriteLine("Indlæs FID");
+           
         }
 
+        [Test]
         public void HandleRfidReaderdetected_LadeSkabStateAvailable()
         {
-            uut._state = LadeskabState.Available;
+           //Charger connected
+            _tempCharger.Connected = true;
+            
+            _tempRfidReader.RfidDetected += Raise.EventWith(new RfidDetectedEventArgs {id = 5});
+            Assert.That(uut._oldId, Is.EqualTo(5));
+
+            //_tempDisplay.WriteLine("Skabet er låst og din telefon lades. Brug dit RFID tag til at låse op.");
         }
 
         public void HandleRfidReaderdetected_LadeSkabStateLocked()
