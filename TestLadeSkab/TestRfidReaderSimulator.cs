@@ -19,14 +19,6 @@ namespace TestLadeSkab
         [SetUp]
         public void Setup()
         {
-            /*
-            _heater = Substitute.For<IHeater>();
-            _tempsensor = Substitute.For<ITempSensor>();
-            _logger = Substitute.For<ILogger>();
-
-            uut = new ECS(1, _heater, _tempsensor, _logger);
-            */
-
             _receivedEventArgs = null;
 
             _uut = new RfidReaderSimulator();
@@ -36,7 +28,6 @@ namespace TestLadeSkab
             {
                 _receivedEventArgs = args;
             };
-
         }
 
         [Test]
@@ -46,22 +37,12 @@ namespace TestLadeSkab
             Assert.That(_receivedEventArgs, Is.Not.Null);
         }
 
-        [Test]
-        public void SetCurrentId_IdSetToNewValue_CorrectNewIdReceived()
+        [TestCase(5,5)]
+        [TestCase(10, 10)]
+        public void SetCurrentId_IdSetToNewValue_CorrectNewIdReceived(int id, int result)
         {
-            _uut.SimulateDetected(5);
-            Assert.That(_receivedEventArgs.id, Is.EqualTo(5));
+            _uut.SimulateDetected(id);
+            Assert.That(_receivedEventArgs.id, Is.EqualTo(result));
         }
-
-        /*
-        [TestCase(7, 1)]
-        [TestCase(1, 0)]
-        public void TestRegulateIfStatement(int threshold, int result)
-        {
-            uut.SetThreshold(threshold);
-            uut.Regulate();
-            _heater.Received(1).TurnOn();
-        }
-        */
     }
 }
