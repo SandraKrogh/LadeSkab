@@ -58,5 +58,31 @@ namespace TestLadeSkab
             _uut.DoorClosed();
             Assert.That(_receivedEventArgs.State, Is.EqualTo(true));
         }
-    }
+
+        [Test]
+        public void ctor_CurrentState()
+        {
+            Assert.That(_uut.CurrentState, Is.False);
+        }
+
+        [Test]
+        public void ctor_Locked()
+        {
+            Assert.That(_uut.locked, Is.False);
+        }
+
+        [Test]
+        public void lockDoor_LockStateChanges()
+        {
+            _uut.LockDoor();
+            Assert.That(_uut.locked, Is.True);
+        }
+
+        [Test]
+        public void unlockDoor_LockStateChanges()
+        {
+            _uut.UnlockDoor();
+            Assert.That(_uut.locked, Is.False);
+        }
+}
 }
