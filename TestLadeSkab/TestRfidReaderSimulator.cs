@@ -13,7 +13,7 @@ namespace TestLadeSkab
     [TestFixture]
     public class TestRfidReaderSimulator
     {
-        private RfidReader _uut;
+        private RfidReaderSimulator _uut;
         private RfidDetectedEventArgs _receivedEventArgs;
 
         [SetUp]
@@ -29,7 +29,7 @@ namespace TestLadeSkab
 
             _receivedEventArgs = null;
 
-            _uut = new RfidReader();
+            _uut = new RfidReaderSimulator();
 
             // Set up event listener
             _uut.RfidDetected += (obj, args) =>

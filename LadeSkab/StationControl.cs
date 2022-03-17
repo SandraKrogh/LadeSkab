@@ -94,12 +94,12 @@ namespace LadeSkab
         private void HandleDoorChangedEvent(object sender, DoorStateEventArg e)
         {
             //Dør er åbnet af brugeren
-            if(e.Current == false)
+            if(e.State == false)
             {
                 Console.WriteLine("Tilslut Telefon");
             }
             //Dør lukkes af brugeren 
-            else if (e.Current == true)
+            else if (e.State == true)
             {
                 Console.WriteLine("Indlæs RFID");
             }

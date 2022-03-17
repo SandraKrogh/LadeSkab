@@ -7,7 +7,7 @@ using LadeSkab.Interfaces;
 
 namespace LadeSkab
 {
-    public class RfidReader : IRfdReader
+    public class RfidReaderSimulator : IRfdReader
     { 
         public event EventHandler<RfidDetectedEventArgs> RfidDetected;
 

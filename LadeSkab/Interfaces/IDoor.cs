@@ -8,7 +8,7 @@ namespace LadeSkab.Interfaces
 {
     public class DoorStateEventArg : EventArgs
     {
-        public bool Current { set; get; }
+        public bool State { set; get; }
     }
 
     public interface IDoor
