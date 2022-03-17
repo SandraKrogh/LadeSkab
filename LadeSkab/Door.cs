@@ -27,7 +27,7 @@ namespace LadeSkab
         public void DoorOpen()
         {
             CurrentState = false;
-            OnNewCurrent();
+            OnNewState();
         }
 
         //Dør lukkes
@@ -35,7 +35,7 @@ namespace LadeSkab
         {
 
             CurrentState = true;
-            OnNewCurrent();
+            OnNewState();
         }
 
         //Lås Dør
@@ -44,15 +44,15 @@ namespace LadeSkab
             locked = true;
         }
 
-        //Åben dør 
+        //Dør er åben
         public void UnlockDoor()
         {
             locked = false;
         }
 
-        private void OnNewCurrent()
+        private void OnNewState()
         {
-            DoorStateChanged?.Invoke(this, new DoorStateEventArg() { Current = this.CurrentState });
+            DoorStateChanged?.Invoke(this, new DoorStateEventArg() { State = this.CurrentState });
         }
     }
 }
