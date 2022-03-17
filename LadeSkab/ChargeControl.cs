@@ -12,7 +12,13 @@ namespace LadeSkab
         IUsbCharger myUsbCharger_;
         public double currentCurrent_; // Nuværende strøm
 
-        ChargeControl(IUsbCharger usbCharger)
+        public double CurrentCurrent 
+        {
+            get { return currentCurrent_; }
+            set { currentCurrent_ = value; }
+        }
+
+        public ChargeControl(IUsbCharger usbCharger)
         {
             myUsbCharger_ = usbCharger;
 
@@ -37,8 +43,7 @@ namespace LadeSkab
 
         public void StartCharge()
         {
-            if (IsConnected())
-                myUsbCharger_.StartCharge();
+            myUsbCharger_.StartCharge();
         }
         public void StopCharge()
         {

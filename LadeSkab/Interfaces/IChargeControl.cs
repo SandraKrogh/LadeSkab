@@ -8,6 +8,7 @@ namespace LadeSkab.Interfaces
 {
     public interface IChargeControl
     {
+        double CurrentCurrent { get; set; }
         void StartCharge();
         void StopCharge();
         bool IsConnected();
