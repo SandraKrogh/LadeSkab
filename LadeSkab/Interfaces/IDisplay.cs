@@ -9,5 +9,6 @@ namespace LadeSkab.Interfaces
     public interface IDisplay
     {
         void WriteLine(string message);
+        string LogResult { get; set; }
     }
 }

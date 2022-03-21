@@ -65,12 +65,13 @@ namespace TestLadeSkab
             _uut.StopCharge();
             _usbCharger.Received(1).StopCharge();
         }
-        [Test]
-        public void IsConnected_ValueTrue_ReturnedFromUsbCharger()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void IsConnected_CorrectValue_ReturnedFromUsbCharger(bool state)
         {
-            _uut.IsConnected();
+            _usbCharger.Connected = state;
 
-            Assert.AreEqual(true, _usbCharger.Connected);
+            Assert.AreEqual(state, _uut.IsConnected());
         }
 
     }

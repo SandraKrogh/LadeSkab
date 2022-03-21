@@ -11,6 +11,7 @@ namespace LadeSkab
     {
         IUsbCharger myUsbCharger_;
         public double currentCurrent_; // Nuværende strøm
+        private IDisplay myDisplay_ = new Display();
 
         public double CurrentCurrent 
         {
@@ -31,13 +32,13 @@ namespace LadeSkab
             currentCurrent_ = e.Current;
 
             if (currentCurrent_ > 0 && currentCurrent_ <= 5)
-                Console.WriteLine("Telefonen er fuldt opladet");
+                myDisplay_.WriteLine("Telefonen er fuldt opladet");
             else if (currentCurrent_ > 5 && currentCurrent_ <= 500)
-                Console.WriteLine("Telefonen lader");
+                myDisplay_.WriteLine("Telefonen lader");
             else if (currentCurrent_ > 500)
             {
                 StopCharge();
-                Console.WriteLine("Fejl - Der er noget galt!");
+                myDisplay_.WriteLine("Fejl - Der er noget galt!");
             }
         }
 
