@@ -40,19 +40,16 @@ namespace TestLadeSkab
         [TestCase(1, "Telefonen er fuldt opladet")]
         [TestCase(3, "Telefonen er fuldt opladet")]
         [TestCase(5, "Telefonen er fuldt opladet")]
-        [TestCase(6, "Telefonen lader\r\n")]
-        [TestCase(250, "Telefonen lader\r\n")]
-        [TestCase(500, "Telefonen lader\r\n")]
-        [TestCase(501, "Fejl - Der er noget galt!\r\n")]
-        [TestCase(600, "Fejl - Der er noget galt!\r\n")]
+        [TestCase(6, "Telefonen lader")]
+        [TestCase(250, "Telefonen lader")]
+        [TestCase(500, "Telefonen lader")]
+        [TestCase(501, "Fejl - Der er noget galt!")]
+        [TestCase(600, "Fejl - Der er noget galt!")]
         public void CurrentChanged_CorrectOutput(int current, string result)
         {
-            //var stringwriter = new StringWriter();
-            //Console.SetOut(stringwriter);
-
             _usbCharger.CurrentValueEvent += Raise.EventWith(new CurrentEventArgs { Current = current });
+
             _display.Received(1).WriteLine(result);
-       
         }
 
         [Test]
