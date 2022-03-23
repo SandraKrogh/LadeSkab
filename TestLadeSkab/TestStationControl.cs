@@ -49,7 +49,8 @@ namespace TestLadeSkab
             _tempDisplay.Received(1).WriteLine("Indlæs RFID");           
         }
 
-        
+       
+        /*
         [TestCase(true, "Skabet er låst og din telefon lades.Brug dit RFID tag til at låse op.")]
         [TestCase(false, "Din telefon er ikke ordentlig tilsluttet. Prøv igen.")]
         public void HandleRfidReaderdetected_LadeSkabStateAvailable(bool connected, string result)
@@ -58,7 +59,7 @@ namespace TestLadeSkab
 
             _tempRfidReader.RfidDetected += Raise.EventWith(new RfidDetectedEventArgs {id = 5});
             _tempDisplay.Received(1).WriteLine(result);
-        }
+        }*/
 
         /*
         [TestCase(5, 5, "Tag din telefon ud af skabet og luk døren")]
