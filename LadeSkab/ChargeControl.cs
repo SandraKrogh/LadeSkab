@@ -11,7 +11,7 @@ namespace LadeSkab
     {
         IUsbCharger myUsbCharger_;
         public double currentCurrent_; // Nuværende strøm
-        private IDisplay myDisplay_ = new Display();
+        private IDisplay myDisplay_;
 
         public double CurrentCurrent 
         {
@@ -19,9 +19,10 @@ namespace LadeSkab
             set { currentCurrent_ = value; }
         }
 
-        public ChargeControl(IUsbCharger usbCharger)
+        public ChargeControl(IUsbCharger usbCharger, IDisplay display)
         {
             myUsbCharger_ = usbCharger;
+            myDisplay_ = display;
 
             usbCharger.CurrentValueEvent += HandleCurrentValueEvent;
         }

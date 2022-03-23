@@ -9,12 +9,13 @@ namespace LadeSkab
 {
     public class Display : IDisplay
     {
+        public string LogResult { get; set; } = "";
         public void WriteLine(string message)
         {
             LogResult = message;
             Console.WriteLine(message);
         }
 
-        public string LogResult { get; set; } = "";
+        
     }
 }
