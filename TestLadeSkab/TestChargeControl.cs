@@ -17,13 +17,15 @@ namespace TestLadeSkab
 
         private IChargeControl _uut;
         private IUsbCharger _usbCharger;
+        private IDisplay _display;
 
         [SetUp]
         public void Setup()
         {
             _usbCharger = Substitute.For<IUsbCharger>();
+            _display = Substitute.For<IDisplay>();
 
-            _uut = new ChargeControl(_usbCharger);
+            _uut = new ChargeControl(_usbCharger, _display);
 
         }
 
@@ -45,12 +47,12 @@ namespace TestLadeSkab
         [TestCase(600, "Fejl - Der er noget galt!\r\n")]
         public void CurrentChanged_CorrectOutput(int current, string result)
         {
-            var stringwriter = new StringWriter();
-            Console.SetOut(stringwriter);
+            //var stringwriter = new StringWriter();
+            //Console.SetOut(stringwriter);
 
             _usbCharger.CurrentValueEvent += Raise.EventWith(new CurrentEventArgs { Current = current });
 
-            Assert.AreEqual(result, stringwriter.ToString());
+            Assert.AreEqual(result, _display.LogResult);
         }
 
         [Test]
