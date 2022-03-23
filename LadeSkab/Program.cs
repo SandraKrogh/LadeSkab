@@ -10,10 +10,11 @@ namespace LadeSkab
         // Assemble your system here from all the classes
 
         Door mydoor = new Door();
+        Display mydisplay = new Display();
         RfidReaderSimulator myRfidReader = new RfidReaderSimulator();
         UsbChargerSimulator myUsbChargerSimulator = new UsbChargerSimulator();
-        ChargeControl myChargeControl = new ChargeControl(myUsbChargerSimulator);
-        StationControl myStationControl = new StationControl(mydoor, myRfidReader,myChargeControl);
+        ChargeControl myChargeControl = new ChargeControl(myUsbChargerSimulator,mydisplay);
+        StationControl myStationControl = new StationControl(mydoor, myRfidReader,myChargeControl,mydisplay);
 
 
             bool finish = false;

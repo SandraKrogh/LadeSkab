@@ -24,13 +24,14 @@ namespace LadeSkab
         public int _oldId;
         public IDoor _door;
         public IRfidReader _rfidReader;
-        public IDisplay _myDisplay = new Display();
+        public IDisplay _myDisplay;
 
         private string logFile = "logfile.txt"; // Navnet på systemets log-fil
 
         // Her mangler constructor
-        public StationControl(IDoor door, IRfidReader reader, IChargeControl chargeControl)
+        public StationControl(IDoor door, IRfidReader reader, IChargeControl chargeControl, IDisplay display)
         {
+            _myDisplay = display;
             _chargeControl = chargeControl;
             _door = door;
             _rfidReader = reader;

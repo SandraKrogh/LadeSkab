@@ -15,7 +15,7 @@ namespace TestLadeSkab
     public class TestChargeControl
     {
 
-        private IChargeControl _uut;
+        private ChargeControl _uut;
         private IUsbCharger _usbCharger;
         private IDisplay _display;
 
@@ -37,9 +37,9 @@ namespace TestLadeSkab
             Assert.That(_uut.CurrentCurrent, Is.EqualTo(result));
         }
 
-        [TestCase(1, "Telefonen er fuldt opladet\r\n")]
-        [TestCase(3, "Telefonen er fuldt opladet\r\n")]
-        [TestCase(5, "Telefonen er fuldt opladet\r\n")]
+        [TestCase(1, "Telefonen er fuldt opladet")]
+        [TestCase(3, "Telefonen er fuldt opladet")]
+        [TestCase(5, "Telefonen er fuldt opladet")]
         [TestCase(6, "Telefonen lader\r\n")]
         [TestCase(250, "Telefonen lader\r\n")]
         [TestCase(500, "Telefonen lader\r\n")]
@@ -51,8 +51,8 @@ namespace TestLadeSkab
             //Console.SetOut(stringwriter);
 
             _usbCharger.CurrentValueEvent += Raise.EventWith(new CurrentEventArgs { Current = current });
-
-            Assert.AreEqual(result, _display.LogResult);
+            _display.Received(1).WriteLine(result);
+       
         }
 
         [Test]

@@ -11,7 +11,7 @@ namespace LadeSkab
     {
         IUsbCharger myUsbCharger_;
         public double currentCurrent_; // Nuværende strøm
-        private IDisplay myDisplay_;
+        public IDisplay myDisplay_;
 
         public double CurrentCurrent 
         {
