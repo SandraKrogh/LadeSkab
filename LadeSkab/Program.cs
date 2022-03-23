@@ -1,4 +1,5 @@
 ﻿using LadeSkab;
+using System;
 
 namespace LadeSkab
 {
@@ -10,15 +11,16 @@ namespace LadeSkab
 
         Door mydoor = new Door();
         RfidReaderSimulator myRfidReader = new RfidReaderSimulator();
-        StationControl myStationControl = new StationControl(mydoor, myRfidReader);
-   
+        UsbChargerSimulator myUsbChargerSimulator = new UsbChargerSimulator();
+        ChargeControl myChargeControl = new ChargeControl(myUsbChargerSimulator);
+        StationControl myStationControl = new StationControl(mydoor, myRfidReader,myChargeControl);
 
 
             bool finish = false;
             do
             {
                 string input;
-                System.Console.WriteLine("Indtast E - end, O - Open door, C - close Door, R - Rfid id: ");
+                Console.WriteLine("Indtast E - end, O - Open door, C - close Door, R - Rfid id: ");
                 input = Console.ReadLine();
                 if (string.IsNullOrEmpty(input)) continue;
 
@@ -37,8 +39,8 @@ namespace LadeSkab
                         break;
 
                     case 'R':
-                        System.Console.WriteLine("Indtast RFID id: ");
-                        string idString = System.Console.ReadLine();
+                        Console.WriteLine("Indtast RFID id: ");
+                        string idString = Console.ReadLine();
 
                         int id = Convert.ToInt32(idString);
                         myRfidReader.SimulateDetected(id);
