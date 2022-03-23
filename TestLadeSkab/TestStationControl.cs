@@ -37,7 +37,8 @@ namespace TestLadeSkab
         public void HandleDoorStateChanged_CurrentStateFalse()
         {
             _tempDoor.DoorStateChanged += Raise.EventWith(new DoorStateEventArg {State = false});
-            Assert.That(uut._myDisplay.LogResult, Is.EqualTo("Tilslut Telefon")); //SPØRG
+            _tempDisplay.Received(1).WriteLine("Tilslut Telefon");
+
 
         }
 
@@ -45,29 +46,29 @@ namespace TestLadeSkab
         public void HandleDoorStateChanged_CurrentStateTrue()
         {
             _tempDoor.DoorStateChanged += Raise.EventWith(new DoorStateEventArg { State = true });
-            Assert.That(uut._myDisplay.LogResult, Is.EqualTo("Indlæs RFID")); //SPØRG
-           
+            _tempDisplay.Received(1).WriteLine("Indlæs RFID");           
         }
 
-        //Den er nul da der ikke er noget subscribers, hvordan løse man det 
-        [Test]
-        public void HandleRfidReaderdetected_LadeSkabStateAvailable_ChargerConnected()
+        
+        [TestCase(true, "Skabet er låst og din telefon lades.Brug dit RFID tag til at låse op.")]
+        [TestCase(false, "Din telefon er ikke ordentlig tilsluttet. Prøv igen.")]
+        public void HandleRfidReaderdetected_LadeSkabStateAvailable(bool connected, string result)
         {
-            _tempCharger.Connected = false;
+            _tempCharger.Connected = connected;
 
             _tempRfidReader.RfidDetected += Raise.EventWith(new RfidDetectedEventArgs {id = 5});
-            _tempDisplay.Received(1).WriteLine("Skabet er låst og din telefon lades.Brug dit RFID tag til at låse op.");
+            _tempDisplay.Received(1).WriteLine(result);
         }
 
-        [Test]
-        public void HandleRfidReaderdetected_LadeSkabStateAvailable_ChargerNotConnected()
+        [TestCase(5, 5, "Tag din telefon ud af skabet og luk døren")]
+        [TestCase(5,6, "Forkert RFID tag")]
+        public void HandleRfidReaderdetected_LadeSkabStateLocked(int oldid, int id, string result)
         {
-            //Charger connected
-            _tempCharger.Connected = false;
+            _tempCharger.Connected = connected;
 
-            _tempRfidReader.RfidDetected += Raise.EventWith(new RfidDetectedEventArgs { id = 5 });
-
-            Assert.That(uut._myDisplay.LogResult, Is.EqualTo("Din telefon er ikke ordentlig tilsluttet. Prøv igen.")); //SPØRG
+            _tempRfidReader.RfidDetected += Raise.EventWith(new RfidDetectedEventArgs { id = id });
+            _tempRfidReader.RfidDetected += Raise.EventWith(new RfidDetectedEventArgs { id = oldid });
+            _tempDisplay.Received(1).WriteLine(result);
         }
 
         public void HandleRfidReaderdetected_LadeSkabStateLocked()
