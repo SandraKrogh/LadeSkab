@@ -60,6 +60,7 @@ namespace TestLadeSkab
             _tempDisplay.Received(1).WriteLine(result);
         }
 
+        /*
         [TestCase(5, 5, "Tag din telefon ud af skabet og luk døren")]
         [TestCase(5,6, "Forkert RFID tag")]
         public void HandleRfidReaderdetected_LadeSkabStateLocked(int oldid, int id, string result)
@@ -79,6 +80,6 @@ namespace TestLadeSkab
         public void HandleRfidReaderdetected_LadeSkabStateDoorOpen()
         {
 
-        }
+        }*/
     }
 }
