@@ -20,18 +20,21 @@ namespace LadeSkab
 
         // Her mangler flere member variable
         private LadeskabState _state;
-        private IChargeControl _charger;
+        private IChargeControl _chargeControl;
         public int _oldId;
-        private IDoor _door;
-        private IRfidReader _rfidReader;
-        private IDisplay _myDisplay = new Display();
+        public IDoor _door;
+        public IRfidReader _rfidReader;
+        public IDisplay _myDisplay = new Display();
 
         private string logFile = "logfile.txt"; // Navnet på systemets log-fil
 
         // Her mangler constructor
-        public StationControl(IDoor door, IRfidReader reader)
+        public StationControl(IDoor door, IRfidReader reader, IChargeControl chargeControl)
         {
-            door.DoorStateChanged += HandleDoorChangedEvent;
+            _chargeControl = chargeControl;
+            _door = door;
+            _rfidReader = reader;
+            _door.DoorStateChanged += HandleDoorChangedEvent;
             reader.RfidDetected += HandleRfidDetected;
             _state = LadeskabState.Available;
         }
@@ -45,10 +48,10 @@ namespace LadeSkab
             {
                 case LadeskabState.Available:
                     // Check for ladeforbindelse
-                    if (_charger.IsConnected())
+                    if (_chargeControl.IsConnected())
                     {
                         _door.LockDoor();
-                        _charger.StartCharge();
+                        _chargeControl.StartCharge();
                         _oldId = id;
 
                         using (var writer = File.AppendText(logFile))
@@ -74,7 +77,7 @@ namespace LadeSkab
                     // Check for correct ID
                     if (id == _oldId)
                     {
-                        _charger.StopCharge();
+                        _chargeControl.StopCharge();
                         _door.UnlockDoor();
                         using (var writer = File.AppendText(logFile))
                         {
