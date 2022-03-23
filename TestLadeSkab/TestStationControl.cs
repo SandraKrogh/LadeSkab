@@ -67,6 +67,7 @@ namespace TestLadeSkab
         public void HandleRfidReaderdetected_LadeSkabStateLocked(int id, int oldid, string result)
         {
             _tempChargerControl.IsConnected().Returns(true);
+            //Hey hey
 
             _tempRfidReader.RfidDetected += Raise.EventWith(new RfidDetectedEventArgs { id = id });
             _tempRfidReader.RfidDetected += Raise.EventWith(new RfidDetectedEventArgs { id = oldid });
