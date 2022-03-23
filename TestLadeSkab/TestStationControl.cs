@@ -64,7 +64,7 @@ namespace TestLadeSkab
         [TestCase(5,6, "Forkert RFID tag")]
         public void HandleRfidReaderdetected_LadeSkabStateLocked(int oldid, int id, string result)
         {
-            _tempCharger.Connected = connected;
+            //_tempCharger.Connected = connected;
 
             _tempRfidReader.RfidDetected += Raise.EventWith(new RfidDetectedEventArgs { id = id });
             _tempRfidReader.RfidDetected += Raise.EventWith(new RfidDetectedEventArgs { id = oldid });
