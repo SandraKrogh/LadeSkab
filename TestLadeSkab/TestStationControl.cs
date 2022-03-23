@@ -18,6 +18,7 @@ namespace TestLadeSkab
         private IRfidReader _tempRfidReader;
         private IDoor _tempDoor;
         private IUsbCharger _tempCharger;
+        private IChargeControl _tempChargerControl;
         private IDisplay _tempDisplay;
 
         [SetUp]
@@ -27,6 +28,7 @@ namespace TestLadeSkab
             _tempDoor = Substitute.For<IDoor>();
             _tempCharger = Substitute.For<IUsbCharger>();
             _tempDisplay = Substitute.For<IDisplay>();
+            _tempChargerControl = Substitute.For<IChargeControl>();
 
             uut = new StationControl(_tempDoor, _tempRfidReader);
         }
@@ -47,11 +49,12 @@ namespace TestLadeSkab
            
         }
 
+        //Den er nul da der ikke er noget subscribers, hvordan løse man det 
         [Test]
         public void HandleRfidReaderdetected_LadeSkabStateAvailable()
         {
            //Charger connected
-            _tempCharger.Connected = true;
+           // _tempCharger.Connected = true;
             
             _tempRfidReader.RfidDetected += Raise.EventWith(new RfidDetectedEventArgs {id = 5});
             Assert.That(uut._oldId, Is.EqualTo(5));

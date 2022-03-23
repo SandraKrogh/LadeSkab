@@ -16,10 +16,10 @@ namespace LadeSkab
         public void SimulateDetected(int id)
         {
             CurrentId = id;
-            OnNewCurrent();
+            OnNewid();
         }
 
-        private void OnNewCurrent()
+        private void OnNewid()
         {
             RfidDetected?.Invoke(this, new RfidDetectedEventArgs() { id = this.CurrentId });
         }

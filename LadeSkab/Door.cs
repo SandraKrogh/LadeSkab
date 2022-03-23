@@ -24,14 +24,14 @@ namespace LadeSkab
         }
 
         //Dør åbnes
-        public void DoorOpen()
+        public void SimulateDoorOpen()
         {
             CurrentState = false;
             OnNewState();
         }
 
         //Dør lukkes
-        public void DoorClosed()
+        public void SimulateDoorClosed()
         {
 
             CurrentState = true;

@@ -103,7 +103,7 @@ namespace LadeSkab
                 _state = LadeskabState.DoorOpen;
             }
             //Døren lukker dør 
-            else if (e.State == false)
+            else if (e.State == true)
             {
                 _myDisplay.WriteLine("Indlæs RFID");
                 _state = LadeskabState.Available;

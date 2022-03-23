@@ -1,15 +1,24 @@
-﻿/*    
-class Program
+﻿using LadeSkab;
+
+namespace LadeSkab
+{
+    class Program
     {
         static void Main(string[] args)
         {
-				// Assemble your system here from all the classes
+        // Assemble your system here from all the classes
+
+        Door mydoor = new Door();
+        RfidReaderSimulator myRfidReader = new RfidReaderSimulator();
+        StationControl myStationControl = new StationControl(mydoor, myRfidReader);
+   
+
 
             bool finish = false;
             do
             {
                 string input;
-                System.Console.WriteLine("Indtast E, O, C, R: ");
+                System.Console.WriteLine("Indtast E - end, O - Open door, C - close Door, R - Rfid id: ");
                 input = Console.ReadLine();
                 if (string.IsNullOrEmpty(input)) continue;
 
@@ -20,11 +29,11 @@ class Program
                         break;
 
                     case 'O':
-                        door.OnDoorOpen();
+                        mydoor.SimulateDoorOpen();
                         break;
 
                     case 'C':
-                        door.OnDoorClose();
+                        mydoor.SimulateDoorClosed();
                         break;
 
                     case 'R':
@@ -32,7 +41,7 @@ class Program
                         string idString = System.Console.ReadLine();
 
                         int id = Convert.ToInt32(idString);
-                        rfidReader.OnRfidRead(id);
+                        myRfidReader.SimulateDetected(id);
                         break;
 
                     default:
@@ -44,4 +53,3 @@ class Program
 
     }
 }
-*/

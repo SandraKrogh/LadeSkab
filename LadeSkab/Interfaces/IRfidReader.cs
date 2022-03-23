@@ -17,8 +17,5 @@ namespace LadeSkab.Interfaces
 
         int CurrentId { get; set; }
 
-        void SimulateDetected(int id);
-
-
     }
 }

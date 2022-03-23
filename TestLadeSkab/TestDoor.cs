@@ -34,28 +34,28 @@ namespace TestLadeSkab
         [Test]
         public void SetCurrentId_StateSetToFalse_EventFired()
         {
-            _uut.DoorOpen();
+            _uut.SimulateDoorOpen();
             Assert.That(_receivedEventArgs, Is.Not.Null);
         }
 
         [Test]
         public void SetCurrentId_StateSetToFalse_CorrectNewIdReceived()
         {
-            _uut.DoorOpen();
+            _uut.SimulateDoorOpen();
             Assert.That(_receivedEventArgs.State, Is.EqualTo(false));
         }
 
         [Test]
         public void SetCurrentId_StateSetToTrue_EventFired()
         {
-            _uut.DoorClosed();
+            _uut.SimulateDoorClosed();
             Assert.That(_receivedEventArgs, Is.Not.Null);
         }
 
         [Test]
         public void SetCurrentId_StateSetToTrue_CorrectNewIdReceived()
         {
-            _uut.DoorClosed();
+            _uut.SimulateDoorClosed();
             Assert.That(_receivedEventArgs.State, Is.EqualTo(true));
         }
 

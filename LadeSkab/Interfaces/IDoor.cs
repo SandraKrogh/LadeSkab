@@ -21,12 +21,6 @@ namespace LadeSkab.Interfaces
 
         public bool locked { get; set; }
 
-        //Open door
-        void DoorOpen();
-
-        //Close door
-        void DoorClosed();
-
         void LockDoor();
 
         void UnlockDoor();
