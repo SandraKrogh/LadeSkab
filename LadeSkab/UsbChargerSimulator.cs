@@ -27,7 +27,7 @@ namespace LadeSkab
         public UsbChargerSimulator()
         {
             CurrentValue = 0.0;
-            Connected = false;
+            Connected = true;
             _overload = false;
 
             _timer = new System.Timers.Timer();

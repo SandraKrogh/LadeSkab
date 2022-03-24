@@ -24,6 +24,8 @@ namespace LadeSkab
             myUsbCharger_ = usbCharger;
             myDisplay_ = display;
 
+            myUsbCharger_.Connected = false;
+
             usbCharger.CurrentValueEvent += HandleCurrentValueEvent;
         }
         
