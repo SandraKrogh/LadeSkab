@@ -30,16 +30,19 @@ namespace LadeSkab
         // Handler for event fra UsbCharger
         private void HandleCurrentValueEvent(object sender, CurrentEventArgs e)
         {
-            currentCurrent_ = e.Current;
-
-            if (currentCurrent_ > 0 && currentCurrent_ <= 5)
-                myDisplay_.WriteLine("Telefonen er fuldt opladet");
-            else if (currentCurrent_ > 5 && currentCurrent_ <= 500)
-                myDisplay_.WriteLine("Telefonen lader");
-            else if (currentCurrent_ > 500)
+            if (currentCurrent_ != e.Current)
             {
-                StopCharge();
-                myDisplay_.WriteLine("Fejl - Der er noget galt!");
+                currentCurrent_ = e.Current;
+
+                if (currentCurrent_ > 0 && currentCurrent_ <= 5)
+                    myDisplay_.WriteLine("Telefonen er fuldt opladet");
+                else if (currentCurrent_ > 5 && currentCurrent_ <= 500)
+                    myDisplay_.WriteLine("Telefonen lader");
+                else if (currentCurrent_ > 500)
+                {
+                    StopCharge();
+                    myDisplay_.WriteLine("Fejl - Der er noget galt!");
+                }
             }
         }
 

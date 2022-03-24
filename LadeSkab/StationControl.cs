@@ -55,12 +55,13 @@ namespace LadeSkab
                         _chargeControl.StartCharge();
                         _oldId = id;
 
+                        /*
                         using (var writer = File.AppendText(logFile))
                         {
                             writer.WriteLine(DateTime.Now + ": Skab låst med RFID: {0}", id);
-                        }
+                        }*/
 
-                        _myDisplay.WriteLine("Skabet er låst og din telefon lades. Brug dit RFID tag til at låse op.");
+                        _myDisplay.WriteLine("Ladeskab optaget");
                         _state = LadeskabState.Locked;
                     }
                     else
@@ -85,7 +86,7 @@ namespace LadeSkab
                             writer.WriteLine(DateTime.Now + ": Skab låst op med RFID: {0}", id);
                         }
 
-                        _myDisplay.WriteLine("Tag din telefon ud af skabet og luk døren");
+                        _myDisplay.WriteLine("Fjern telefon");
                         _state = LadeskabState.Available;
                     }
                     else

@@ -5,7 +5,9 @@ VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LadeSkab", "LadeSkab\LadeSkab.csproj", "{434FB016-32FC-4CA4-9909-3B945EE4CB1A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestLadeSkab", "TestLadeSkab\TestLadeSkab.csproj", "{DB982F06-05E0-4B4B-A868-35DD5898D881}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestLadeSkab", "TestLadeSkab\TestLadeSkab.csproj", "{DB982F06-05E0-4B4B-A868-35DD5898D881}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LadeSkabMain", "LadeSkabMain\LadeSkabMain.csproj", "{FD2EEE71-6278-4A6E-869F-D5BCEFF77043}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{DB982F06-05E0-4B4B-A868-35DD5898D881}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DB982F06-05E0-4B4B-A868-35DD5898D881}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DB982F06-05E0-4B4B-A868-35DD5898D881}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD2EEE71-6278-4A6E-869F-D5BCEFF77043}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD2EEE71-6278-4A6E-869F-D5BCEFF77043}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD2EEE71-6278-4A6E-869F-D5BCEFF77043}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD2EEE71-6278-4A6E-869F-D5BCEFF77043}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

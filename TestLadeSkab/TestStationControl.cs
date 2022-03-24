@@ -38,8 +38,6 @@ namespace TestLadeSkab
         {
             _tempDoor.DoorStateChanged += Raise.EventWith(new DoorStateEventArg {State = false});
             _tempDisplay.Received(1).WriteLine("Tilslut Telefon");
-
-
         }
 
         [Test]
@@ -50,7 +48,7 @@ namespace TestLadeSkab
         }
 
         
-        [TestCase(true, "Skabet er låst og din telefon lades. Brug dit RFID tag til at låse op.")]
+        [TestCase(true, "Ladeskab optaget")]
         [TestCase(false, "Din telefon er ikke ordentlig tilsluttet. Prøv igen.")]
         public void HandleRfidReaderdetected_LadeSkabStateAvailable(bool connected, string result)
         {
@@ -62,12 +60,12 @@ namespace TestLadeSkab
         }
 
         
-        [TestCase(5,5, "Tag din telefon ud af skabet og luk døren")]
+        [TestCase(5,5, "Fjern telefon")]
         [TestCase(5,6, "Forkert RFID tag")]
         public void HandleRfidReaderdetected_LadeSkabStateLocked(int id, int oldid, string result)
         {
             _tempChargerControl.IsConnected().Returns(true);
-            //Hey hey
+            
 
             _tempRfidReader.RfidDetected += Raise.EventWith(new RfidDetectedEventArgs { id = id });
             _tempRfidReader.RfidDetected += Raise.EventWith(new RfidDetectedEventArgs { id = oldid });

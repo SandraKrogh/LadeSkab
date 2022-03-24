@@ -10,7 +10,7 @@ namespace LadeSkab
         private const double MaxCurrent = 500.0; // mA
         private const double FullyChargedCurrent = 2.5; // mA
         private const double OverloadCurrent = 750; // mA
-        private const int ChargeTimeMinutes = 20; // minutes
+        private const double ChargeTimeMinutes = 0.05; //5 Sekunder
         private const int CurrentTickInterval = 250; // ms
 
         public event EventHandler<CurrentEventArgs> CurrentValueEvent;
@@ -27,7 +27,7 @@ namespace LadeSkab
         public UsbChargerSimulator()
         {
             CurrentValue = 0.0;
-            Connected = true;
+            Connected = false;
             _overload = false;
 
             _timer = new System.Timers.Timer();
