@@ -68,7 +68,7 @@ namespace TestLadeSkab
         [TestCase(false)]
         public void IsConnected_CorrectValue_ReturnedFromUsbCharger(bool state)
         {
-            _usbCharger.Connected = state;
+            _uut.IsConnected().Returns(state);
 
             Assert.AreEqual(state, _uut.IsConnected());
         }
